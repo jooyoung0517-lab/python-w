@@ -97,7 +97,44 @@ class QuizGame:
             print("🎉 새로운 최고 점수입니다!")
         else:
             print(f"현재 최고 점수는 {self.best_score}점입니다.")
+    def add_quiz(self):
+        print("\n===== 새로운 퀴즈 추가 =====")
 
+        question = input("문제를 입력하세요: ").strip()
+
+        if not question:
+            print("문제는 비워둘 수 없습니다.")
+            return
+
+        choices = []
+
+        for i in range(1, 5):
+            choice = input(f"{i}번 보기를 입력하세요: ").strip()
+
+            if not choice:
+                print("보기는 비워둘 수 없습니다.")
+                return
+
+            choices.append(choice)
+
+        while True:
+            answer_input = input("정답 번호를 입력하세요 (1~4): ").strip()
+
+            try:
+                answer = int(answer_input)
+            except ValueError:
+                print("숫자만 입력해주세요.")
+                continue
+
+            if 1 <= answer <= 4:
+                break
+
+            print("1~4 사이의 숫자를 입력해주세요.")
+
+        new_quiz = Quiz(question, choices, answer)
+        self.quizzes.append(new_quiz)
+
+        print("새로운 퀴즈가 등록되었습니다!")
 
 # QuizGame 객체 생성
 game = QuizGame(quizzes)
@@ -120,7 +157,8 @@ def show_menu():
         if choice == "1":
             play_quiz()
         elif choice == "2":
-            print("퀴즈 추가 기능은 다음 단계에서 구현합니다.")
+            game.add_quiz()
+
         elif choice == "3":
             game.show_quiz_list()
         elif choice == "4":
