@@ -23,28 +23,85 @@ questions_data = [
      "choices": ["달", "금성", "태양", "화성"], "answer": 3}
 ]
 
-# 퀴즈 실행 부분
-quizzes = [Quiz(q["question"], q["choices"], q["answer"]) for q in questions_data]
+# 퀴즈 객체 생성
+quizzes = [
+    Quiz(q["question"], q["choices"], q["answer"])
+    for q in questions_data
+]
 
-score = 0
-print("--- 퀴즈 게임을 시작합니다! ---")
 
-for i, quiz in enumerate(quizzes, 1):
-    quiz.display(i)
-    try:
-        # 사용자에게 번호 입력 받기
-        user_choice = int(input("정답 번호를 입력하세요: "))
-        
+# 퀴즈 풀기
+def play_quiz():
+    score = 0
+    print("\n--- 퀴즈 게임을 시작합니다! ---")
+
+    for i, quiz in enumerate(quizzes, 1):
+        quiz.display(i)
+
+        while True:
+            user_input = input("정답 번호를 입력하세요 (1~4): ").strip()
+
+            if not user_input:
+                print("입력값이 비어 있습니다. 다시 입력하세요.")
+                continue
+
+            try:
+                user_choice = int(user_input)
+            except ValueError:
+                print("숫자만 입력해주세요.")
+                continue
+
+            if not 1 <= user_choice <= 4:
+                print("1~4 사이의 숫자를 입력해주세요.")
+                continue
+
+            break
+
         if quiz.check_answer(user_choice):
             print("정답입니다! 🎉")
             score += 1
         else:
-            print(f"틀렸습니다. 정답은 {quiz.answer}번입니다. 😢")
-    except ValueError:
-        print("숫자만 입력해주세요! 이번 문제는 기회를 잃었습니다.")
+            print(f"틀렸습니다. 정답은 {quiz.answer}번입니다.")
 
-# 최종 결과 출력
-print(f"\n게임 종료! 당신의 점수는 {len(quizzes)}점 만점에 {score}점입니다.")
-sys.exit()
+    print(f"\n게임 종료! {len(quizzes)}문제 중 {score}문제 정답!")
+
+
+# 메인 메뉴
+def show_menu():
+    while True:
+        print("\n================================")
+        print("       🎯 나만의 퀴즈 게임 🎯")
+        print("================================")
+        print("1. 퀴즈 풀기")
+        print("2. 퀴즈 추가")
+        print("3. 퀴즈 목록")
+        print("4. 최고 점수 확인")
+        print("5. 종료")
+        print("================================")
+
+        choice = input("메뉴를 선택하세요 (1~5): ").strip()
+
+        if choice == "1":
+            play_quiz()
+        elif choice == "2":
+            print("퀴즈 추가 기능은 다음 단계에서 구현합니다.")
+        elif choice == "3":
+            print("퀴즈 목록 기능은 다음 단계에서 구현합니다.")
+        elif choice == "4":
+            print("최고 점수 기능은 다음 단계에서 구현합니다.")
+        elif choice == "5":
+            print("퀴즈 게임을 종료합니다.")
+            break
+        else:
+            print("잘못된 입력입니다. 1~5 사이의 숫자를 입력하세요.")
+
+
+# 프로그램 시작
+if __name__ == "__main__":
+    try:
+        show_menu()
+    except (KeyboardInterrupt, EOFError):
+        print("\n입력이 중단되어 프로그램을 안전하게 종료합니다.")
+
 
 
