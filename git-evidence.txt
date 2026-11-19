@@ -1,0 +1,38 @@
+﻿* 3d011e4 (HEAD -> main, origin/main, origin/HEAD) Docs: Add evaluation evidence and design documentation
+* b360eaa (feature/quiz-game) Docs: Update README with quiz game instructions
+* da2263a Fix: Improve menu input validation
+* 59cbab0 Feat: Add JSON persistence and quiz cancellation
+* 8ed03ca Feat: Add quiz creation feature
+* 61ca20b Feat: Add best score tracking
+* f39aabd Feat: Connect quiz list and score menu
+* 718945e Feat: Add QuizGame class
+* 2927a24 Feat: Add quiz menu and input validation
+* 545cec2 ?뚯씠???댁쫰 寃뚯엫 1?④퀎 ?꾨즺
+* 24d3dc0 Initial commit
+=== GitHub Repository ===
+https://github.com/jooyoung0517-lab/python-w
+=== Branch List ===
+  feature/quiz-game
+* main
+  remotes/origin/HEAD -> origin/main
+  remotes/origin/main
+=== Merge Verification ===
+PASS: feature/quiz-game is merged into main
+=== Clone / Pull Practice ===
+Clone command: git clone https://github.com/jooyoung0517-lab/python-w.git python-w-clone
+Clone result: Successfully cloned into python-w-clone
+Pull command: git pull origin main
+git : From https://github.com/jooyoung0517-lab/python-w
+위치 줄:1 문자:1
++ git -C ..\python-w-clone pull origin main 2>&1 | Out-File -FilePath g ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (From https://gi...17-lab/python-w:String) [], Re 
+   moteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+ * branch            main       -> FETCH_HEAD
+   b360eaa..3d011e4  main       -> origin/main
+Updating b360eaa..3d011e4
+Fast-forward
+ README.md | 172 ++++++++++++++++++++++++++++++++++++++++++++++++--------------
+ 1 file changed, 133 insertions(+), 39 deletions(-)
