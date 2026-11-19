@@ -88,7 +88,8 @@ class QuizGame:
             print("아직 퀴즈를 푼 기록이 없습니다.")
         else:
             print(f"최고 점수: {self.best_score}점")
-            
+            # QuizGame 객체 생성
+game = QuizGame(quizzes)
 # 메인 메뉴
 def show_menu():
     while True:
@@ -109,9 +110,9 @@ def show_menu():
         elif choice == "2":
             print("퀴즈 추가 기능은 다음 단계에서 구현합니다.")
         elif choice == "3":
-            print("퀴즈 목록 기능은 다음 단계에서 구현합니다.")
+            game.show_quiz_list()
         elif choice == "4":
-            print("최고 점수 기능은 다음 단계에서 구현합니다.")
+            game.show_best_score()
         elif choice == "5":
             print("퀴즈 게임을 종료합니다.")
             break
