@@ -64,6 +64,8 @@ def play_quiz():
             print(f"틀렸습니다. 정답은 {quiz.answer}번입니다.")
 
     print(f"\n게임 종료! {len(quizzes)}문제 중 {score}문제 정답!")
+    game.update_best_score(score)
+
 
 # 게임 전체를 관리하는 클래스
 class QuizGame:
@@ -88,8 +90,18 @@ class QuizGame:
             print("아직 퀴즈를 푼 기록이 없습니다.")
         else:
             print(f"최고 점수: {self.best_score}점")
-            # QuizGame 객체 생성
+
+    def update_best_score(self, score):
+        if self.best_score is None or score > self.best_score:
+            self.best_score = score
+            print("🎉 새로운 최고 점수입니다!")
+        else:
+            print(f"현재 최고 점수는 {self.best_score}점입니다.")
+
+
+# QuizGame 객체 생성
 game = QuizGame(quizzes)
+
 # 메인 메뉴
 def show_menu():
     while True:
