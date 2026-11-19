@@ -65,7 +65,30 @@ def play_quiz():
 
     print(f"\n게임 종료! {len(quizzes)}문제 중 {score}문제 정답!")
 
+# 게임 전체를 관리하는 클래스
+class QuizGame:
+    def __init__(self, quizzes):
+        self.quizzes = quizzes
+        self.best_score = None
 
+    def show_quiz_list(self):
+        print("\n===== 등록된 퀴즈 목록 =====")
+
+        if not self.quizzes:
+            print("등록된 퀴즈가 없습니다.")
+            return
+
+        for i, quiz in enumerate(self.quizzes, 1):
+            print(f"{i}. {quiz.question}")
+
+    def show_best_score(self):
+        print("\n===== 최고 점수 =====")
+
+        if self.best_score is None:
+            print("아직 퀴즈를 푼 기록이 없습니다.")
+        else:
+            print(f"최고 점수: {self.best_score}점")
+            
 # 메인 메뉴
 def show_menu():
     while True:
