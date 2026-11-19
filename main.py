@@ -200,7 +200,9 @@ def show_menu():
         print("================================")
 
         choice = input("메뉴를 선택하세요 (1~5): ").strip()
-
+        if not choice:
+            print("메뉴 번호를 입력해주세요.")
+            continue
         if choice == "1":
             play_quiz()
         elif choice == "2":
