@@ -1,3 +1,6 @@
+import json
+STATE_FILE = "state.json"
+
 import sys
 
 class Quiz:
@@ -101,7 +104,9 @@ class QuizGame:
         print("\n===== 새로운 퀴즈 추가 =====")
 
         question = input("문제를 입력하세요: ").strip()
-
+        if question.lower() == "q":
+            print("퀴즈 추가를 취소했습니다.")
+            return
         if not question:
             print("문제는 비워둘 수 없습니다.")
             return
@@ -110,7 +115,12 @@ class QuizGame:
 
         for i in range(1, 5):
             choice = input(f"{i}번 보기를 입력하세요: ").strip()
-
+            if choice.lower() == "q":
+                print("퀴즈 추가를 취소했습니다.")
+                return 
+            if choice.lower() == "q":
+                print("퀴즈 추가를 취소했습니다.")
+                return
             if not choice:
                 print("보기는 비워둘 수 없습니다.")
                 return
@@ -119,7 +129,9 @@ class QuizGame:
 
         while True:
             answer_input = input("정답 번호를 입력하세요 (1~4): ").strip()
-
+            if answer_input.lower() == "q":
+                print("퀴즈 추가를 취소했습니다.")
+                return
             try:
                 answer = int(answer_input)
             except ValueError:
@@ -135,9 +147,44 @@ class QuizGame:
         self.quizzes.append(new_quiz)
 
         print("새로운 퀴즈가 등록되었습니다!")
+    def save_state(self):
+        data = {
+            "quizzes": [
+                {
+                    "question": quiz.question,
+                    "choices": quiz.choices,
+                    "answer": quiz.answer
+                }
+                for quiz in self.quizzes
+            ],
+            "best_score": self.best_score
+        }
+
+        with open(STATE_FILE, "w", encoding="utf-8") as file:
+            json.dump(data, file, ensure_ascii=False, indent=4)
+
+        print("게임 데이터가 저장되었습니다!")
+    def load_state(self):
+        try:
+            with open(STATE_FILE, "r", encoding="utf-8") as file:
+                data = json.load(file)
+
+            self.quizzes = [
+                Quiz(q["question"], q["choices"], q["answer"])
+                for q in data["quizzes"]
+            ]
+            self.best_score = data.get("best_score")
+
+            print("저장된 게임 데이터를 불러왔습니다!")
+
+        except FileNotFoundError:
+            print("저장된 데이터가 없어 기본 퀴즈로 시작합니다.")
+        except (json.JSONDecodeError, KeyError, TypeError, ValueError):
+            print("저장 파일에 문제가 있어 기본 퀴즈로 시작합니다.")
 
 # QuizGame 객체 생성
 game = QuizGame(quizzes)
+game.load_state()
 
 # 메인 메뉴
 def show_menu():
@@ -164,8 +211,10 @@ def show_menu():
         elif choice == "4":
             game.show_best_score()
         elif choice == "5":
+            game.save_state()
             print("퀴즈 게임을 종료합니다.")
             break
+        
         else:
             print("잘못된 입력입니다. 1~5 사이의 숫자를 입력하세요.")
 
